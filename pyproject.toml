@@ -1,0 +1,20 @@
+[project]
+name = "mutual-aid-ride-sharing"
+version = "0.1.0"
+description = "A production-ready FastAPI backend for a Mutual Aid Ride-Sharing Network"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi",
+    "sqlmodel",
+    "asyncpg",
+    "pydantic-settings",
+    "uvicorn[standard]",
+    "python-multipart",
+    "geoalchemy2",
+    "psycopg2-binary",
+    "structlog",
+]
+
+[tool.setuptools]
+packages = ["app"]

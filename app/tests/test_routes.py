@@ -1,6 +1,7 @@
 import pytest
 from uuid import uuid4
-from datetime import datetime
+from datetime import datetime, timezone
+from unittest.mock import MagicMock
 from app.models.models import DriverRoute
 
 @pytest.mark.asyncio
@@ -9,7 +10,7 @@ async def test_create_route(client, mock_db):
     route_data = {
         "start_location": [85.3240, 27.7172],
         "destination_location": [85.3333, 27.7000],
-        "departure_time": datetime.utcnow().isoformat(),
+        "departure_time": datetime.now(timezone.utc).isoformat(),
         "available_seats": 3
     }
     
@@ -27,7 +28,7 @@ async def test_search_routes(client, mock_db):
     mock_route.driver_id = uuid4()
     mock_route.start_location = "POINT(85.3240 27.7172)"
     mock_route.destination_location = "POINT(85.3333 27.7000)"
-    mock_route.departure_time = datetime.utcnow()
+    mock_route.departure_time = datetime.now(timezone.utc)
     mock_route.available_seats = 3
     mock_route.is_active = True
     
@@ -40,4 +41,3 @@ async def test_search_routes(client, mock_db):
     data = response.json()
     assert len(data) == 1
     assert data[0]["available_seats"] == 3
-from unittest.mock import MagicMock

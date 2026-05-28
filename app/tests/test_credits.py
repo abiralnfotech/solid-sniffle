@@ -1,6 +1,7 @@
 import pytest
 from uuid import uuid4
-from datetime import datetime
+from datetime import datetime, timezone
+from unittest.mock import MagicMock
 from app.models.models import CreditLedger
 
 @pytest.mark.asyncio
@@ -26,7 +27,7 @@ async def test_get_history(client, mock_db):
         user_id=user_id,
         amount=50,
         description="Test transaction",
-        created_at=datetime.utcnow()
+        created_at=datetime.now(timezone.utc)
     )
     
     mock_execute_result = MagicMock()
@@ -38,4 +39,3 @@ async def test_get_history(client, mock_db):
     data = response.json()
     assert len(data) == 1
     assert data[0]["amount"] == 50
-from unittest.mock import MagicMock

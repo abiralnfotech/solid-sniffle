@@ -1,5 +1,5 @@
 from app.repositories.location import LocationRepository, SOSRepository
-from app.models.models import LocationUpdate, SOSAlert
+from app.models.models import DriverLocationStream, EmergencySOSAlert
 from uuid import UUID
 
 class LocationService:
@@ -7,11 +7,11 @@ class LocationService:
         self.location_repo = location_repo
         self.sos_repo = sos_repo
 
-    async def update_location(self, update_in: LocationUpdate) -> LocationUpdate:
+    async def update_location(self, update_in: DriverLocationStream) -> DriverLocationStream:
         return await self.location_repo.create(update_in)
 
-    async def get_latest_location(self, ride_id: UUID) -> LocationUpdate:
+    async def get_latest_location(self, ride_id: UUID) -> DriverLocationStream:
         return await self.location_repo.get_latest_for_ride(ride_id)
 
-    async def trigger_sos(self, sos_in: SOSAlert) -> SOSAlert:
+    async def trigger_sos(self, sos_in: EmergencySOSAlert) -> EmergencySOSAlert:
         return await self.sos_repo.create(sos_in)

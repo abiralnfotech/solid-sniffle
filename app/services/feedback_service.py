@@ -15,6 +15,7 @@ class FeedbackService:
         self.route_repo = route_repo
 
     async def submit_review(self, reviewer_id: UUID, ride_id: UUID, is_good: bool, flag_reason=None, comment=None) -> RideReview:
+        from app.models.models import ReviewSafetyTag
         ride = await self.ride_repo.get(ride_id)
         if not ride:
             raise AppException("Ride not found", status_code=status.HTTP_404_NOT_FOUND)
@@ -33,11 +34,15 @@ class FeedbackService:
             ride_id=ride_id,
             reviewer_id=reviewer_id,
             reviewee_id=reviewee_id,
-            is_good=is_good,
-            flag_reason=flag_reason,
+            is_good_experience=is_good,
             comment=comment
         )
         review = await self.feedback_repo.create(review_in)
+
+        if flag_reason:
+            tag = ReviewSafetyTag(review_id=review.review_id, reason=flag_reason)
+            self.feedback_repo.db.add(tag)
+            await self.feedback_repo.db.commit()
 
         # Check for automated banning
         user_id = reviewee_id

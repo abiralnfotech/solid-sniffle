@@ -15,7 +15,7 @@ class FeedbackRepository(BaseRepository[RideReview]):
 
         bad_statement = select(func.count(RideReview.review_id)).where(
             RideReview.reviewee_id == user_id,
-            RideReview.is_good == False
+            RideReview.is_good_experience == False
         )
         bad_results = await self.db.execute(bad_statement)
         bad_count = bad_results.scalar() or 0

@@ -12,3 +12,8 @@ dist/
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Mobile
+mobile/node_modules/
+mobile/.expo/
+mobile/dist/

@@ -48,6 +48,34 @@ A production-ready FastAPI backend for a non-profit, community-driven ride-shari
 The API will be available at `http://localhost:8000`.
 Swagger documentation is at `http://localhost:8000/docs`.
 
+## Mobile App (Expo)
+
+The mobile application is located in the `mobile/` directory.
+
+### Prerequisites
+
+- Node.js 18+
+- Expo Go app on your mobile device (to run on physical hardware)
+
+### Getting Started
+
+1. Navigate to the mobile directory:
+   ```bash
+   cd mobile
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the Expo development server:
+   ```bash
+   npm start
+   ```
+
+### Connecting to Backend
+
+The mobile app is configured to automatically detect your computer's IP address and connect to the backend running on port 8000. Ensure your mobile device is on the same network as your development machine.
+
 ### Local Development
 
 1. Create a virtual environment:

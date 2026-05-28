@@ -12,11 +12,14 @@ class RideReviewBase(BaseModel):
 class RideReviewCreate(RideReviewBase):
     ride_id: UUID
 
-class RideReviewRead(RideReviewBase):
+class RideReviewRead(BaseModel):
     review_id: UUID
     ride_id: UUID
     reviewer_id: UUID
     reviewee_id: UUID
+    is_good: bool = Field(validation_alias="is_good_experience")
+    flag_reason: Optional[FlagReason] = None
+    comment: Optional[str] = None
     created_at: datetime
 
     class Config:

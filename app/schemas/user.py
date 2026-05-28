@@ -1,6 +1,9 @@
 from pydantic import BaseModel, Field, field_validator
 import re
 
+from uuid import UUID
+
+
 class UserBase(BaseModel):
     phone_number: str = Field(..., description="Nepalese mobile number starting with +9779")
     full_name: str
@@ -16,7 +19,7 @@ class UserCreate(UserBase):
     pass
 
 class UserRead(UserBase):
-    user_id: str
+    user_id: UUID
     role: str
     is_banned: bool
 

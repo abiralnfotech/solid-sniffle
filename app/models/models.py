@@ -44,7 +44,13 @@ class User(SQLModel, table=True):
         sa_column=Column(TIMESTAMP(timezone=True), server_default=text("CURRENT_TIMESTAMP"), nullable=False)
     )
 
-    kyc: Optional["KYCVerification"] = Relationship(back_populates="user", sa_relationship_kwargs={"cascade": "all, delete-orphan"})
+    kyc: Optional["KYCVerification"] = Relationship(
+        back_populates="user",
+        sa_relationship_kwargs={
+            "cascade": "all, delete-orphan",
+            "foreign_keys": "KYCVerification.user_id"
+        }
+    )
     ledger_entries: List["CreditLedger"] = Relationship(back_populates="user")
 
 class UserDeviceAuth(SQLModel, table=True):
@@ -74,7 +80,10 @@ class KYCVerification(SQLModel, table=True):
     reviewed_at: Optional[datetime] = Field(default=None, sa_column=Column(TIMESTAMP(timezone=True)))
     rejection_reason: Optional[str] = Field(default=None)
 
-    user: User = Relationship(back_populates="kyc")
+    user: User = Relationship(
+        back_populates="kyc",
+        sa_relationship_kwargs={"foreign_keys": "[KYCVerification.user_id]"}
+    )
 
 class DriverRoute(SQLModel, table=True):
     __tablename__ = "driver_routes"

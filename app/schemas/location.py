@@ -10,11 +10,12 @@ class LocationUpdateCreate(LocationUpdateBase):
     ride_id: UUID
 
 class LocationUpdateRead(BaseModel):
-    update_id: UUID
+    stream_id: int = Field(validation_alias="stream_id")
     ride_id: UUID
     driver_id: UUID
-    location: Any
-    timestamp: datetime
+    location: Any = Field(validation_alias="current_gps_coordinate")
+    timestamp: datetime = Field(validation_alias="captured_at")
+
 
     class Config:
         from_attributes = True
@@ -25,8 +26,8 @@ class SOSAlertCreate(LocationUpdateBase):
 class SOSAlertRead(BaseModel):
     sos_id: UUID
     ride_id: UUID
-    user_id: UUID
-    location: Any
+    user_id: UUID = Field(validation_alias="triggered_by")
+    location: Any = Field(validation_alias="last_known_gps")
     is_resolved: bool
     created_at: datetime
 

@@ -2,18 +2,18 @@
 set -eo pipefail
 
 echo "=============================================================================="
-echo "Starting Shiny Eureka FastAPI Backend Service"
+echo "Starting solid sniffle FastAPI Backend Service"
 echo "=============================================================================="
 
 # Wait for Postgres port to be open using a robust python snippet
-echo "Waiting for PostgreSQL database at ${POSTGRES_HOST}:${POSTGRES_PORT}..."
+echo "Waiting for PostgreSQL database at ${POSTGRES_SERVER}:${POSTGRES_PORT}..."
 python3 -c "
 import socket
 import time
 import os
 import sys
 
-host = os.environ.get('POSTGRES_HOST', 'localhost')
+host = os.environ.get('POSTGRES_SERVER', 'localhost')
 port = int(os.environ.get('POSTGRES_PORT', 5432))
 
 start_time = time.time()

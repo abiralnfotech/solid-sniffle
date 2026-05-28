@@ -44,8 +44,19 @@ class User(SQLModel, table=True):
         sa_column=Column(TIMESTAMP(timezone=True), server_default=text("CURRENT_TIMESTAMP"), nullable=False)
     )
 
-    kyc: Optional["KYCVerification"] = Relationship(back_populates="user")
+    kyc: Optional["KYCVerification"] = Relationship(back_populates="user", sa_relationship_kwargs={"cascade": "all, delete-orphan"})
     ledger_entries: List["CreditLedger"] = Relationship(back_populates="user")
+
+class UserDeviceAuth(SQLModel, table=True):
+    __tablename__ = "user_device_auth"
+
+    device_id: UUID = Field(default_factory=uuid4, primary_key=True)
+    user_id: UUID = Field(foreign_key="users.user_id", unique=True)
+    biometric_public_key: Optional[str] = Field(default=None)
+    last_login: datetime = Field(
+        default_factory=datetime.utcnow,
+        sa_column=Column(TIMESTAMP(timezone=True), server_default=text("CURRENT_TIMESTAMP"), nullable=False)
+    )
 
 class KYCVerification(SQLModel, table=True):
     __tablename__ = "kyc_verifications"
@@ -108,33 +119,39 @@ class RideReview(SQLModel, table=True):
     ride_id: UUID = Field(foreign_key="rides.ride_id")
     reviewer_id: UUID = Field(foreign_key="users.user_id")
     reviewee_id: UUID = Field(foreign_key="users.user_id")
-    is_good: bool = Field(description="True for Good Experience, False for Bad Experience")
-    flag_reason: Optional[FlagReason] = Field(default=None)
+    is_good_experience: bool = Field(description="True = 👍, False = 👎")
     comment: Optional[str] = Field(default=None, max_length=500)
     created_at: datetime = Field(
         default_factory=datetime.utcnow,
         sa_column=Column(TIMESTAMP(timezone=True), server_default=text("CURRENT_TIMESTAMP"), nullable=False)
     )
 
-class LocationUpdate(SQLModel, table=True):
-    __tablename__ = "location_updates"
+class ReviewSafetyTag(SQLModel, table=True):
+    __tablename__ = "review_safety_tags"
 
-    update_id: UUID = Field(default_factory=uuid4, primary_key=True)
+    tag_id: UUID = Field(default_factory=uuid4, primary_key=True)
+    review_id: UUID = Field(foreign_key="ride_reviews.review_id")
+    reason: FlagReason = Field()
+
+class DriverLocationStream(SQLModel, table=True):
+    __tablename__ = "driver_location_streams"
+
+    stream_id: Optional[int] = Field(default=None, primary_key=True)
     ride_id: UUID = Field(foreign_key="rides.ride_id")
     driver_id: UUID = Field(foreign_key="users.user_id")
-    location: Any = Field(sa_column=Column(Geography(geometry_type='POINT', srid=4326), nullable=False))
-    timestamp: datetime = Field(
+    current_gps_coordinate: Any = Field(sa_column=Column(Geography(geometry_type='POINT', srid=4326), nullable=False))
+    captured_at: datetime = Field(
         default_factory=datetime.utcnow,
         sa_column=Column(TIMESTAMP(timezone=True), server_default=text("CURRENT_TIMESTAMP"), nullable=False)
     )
 
-class SOSAlert(SQLModel, table=True):
-    __tablename__ = "sos_alerts"
+class EmergencySOSAlert(SQLModel, table=True):
+    __tablename__ = "emergency_sos_alerts"
 
     sos_id: UUID = Field(default_factory=uuid4, primary_key=True)
-    ride_id: UUID = Field(foreign_key="rides.ride_id")
-    user_id: UUID = Field(foreign_key="users.user_id")
-    location: Any = Field(sa_column=Column(Geography(geometry_type='POINT', srid=4326), nullable=False))
+    ride_id: Optional[UUID] = Field(default=None, foreign_key="rides.ride_id")
+    triggered_by: UUID = Field(foreign_key="users.user_id")
+    last_known_gps: Any = Field(sa_column=Column(Geography(geometry_type='POINT', srid=4326), nullable=False))
     is_resolved: bool = Field(default=False)
     created_at: datetime = Field(
         default_factory=datetime.utcnow,

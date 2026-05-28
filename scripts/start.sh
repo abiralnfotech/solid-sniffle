@@ -36,5 +36,8 @@ while True:
         time.sleep(1.0)
 "
 
-echo "Database is ready. Starting Uvicorn ASGI Server..."
+echo "Database is online. Running database initialization..."
+PYTHONPATH=. python3 app/db/init_db.py
+
+echo "Database initialization complete. Starting Uvicorn ASGI Server..."
 exec uvicorn app.main:app --host "${HOST:-0.0.0.0}" --port "${PORT:-8000}" --reload

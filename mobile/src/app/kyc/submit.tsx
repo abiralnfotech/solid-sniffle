@@ -12,7 +12,7 @@ export default function KYCSubmitScreen() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
-    document_type: 'Citizenship',
+    document_type: 'nagarikta',
     document_number: '',
     driver_license_number: '',
     identity_front_url: 'https://example.com/front.jpg', // Placeholder as we don't have image upload logic yet
@@ -53,12 +53,12 @@ export default function KYCSubmitScreen() {
         </ThemedText>
 
         <ThemedView style={styles.formGroup}>
-          <ThemedText type="default">Document Type</ThemedText>
+          <ThemedText type="default">Document Type (nagarikta / rashtriya_parichayapatra)</ThemedText>
           <TextInput
             style={styles.input}
             value={form.document_type}
             onChangeText={(val) => setForm({ ...form, document_type: val })}
-            placeholder="Citizenship / National ID"
+            placeholder="nagarikta / rashtriya_parichayapatra"
           />
         </ThemedView>
 

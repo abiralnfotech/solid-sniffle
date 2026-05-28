@@ -88,6 +88,12 @@ class RideService:
 
         return await self.ride_repo.update(ride, {"status": RideStatus.awaiting_confirmation, "ended_at": datetime.utcnow()})
 
+    async def get_ride(self, ride_id: UUID) -> Ride:
+        ride = await self.ride_repo.get(ride_id)
+        if not ride:
+            raise AppException("Ride not found", status_code=status.HTTP_404_NOT_FOUND)
+        return ride
+
     async def confirm_arrival(self, ride_id: UUID, passenger_id: UUID) -> Ride:
         ride = await self.ride_repo.get(ride_id)
         if not ride:

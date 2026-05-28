@@ -1,0 +1,40 @@
+
+> my-app@1.0.0 web
+> expo start --web
+
+Starting project at /app/mobile
+Using src/app as the root directory for Expo Router.
+React Compiler enabled
+Starting Metro Bundler
+
+Waiting on http://localhost:8081
+Logs for your project will appear below.
+λ Bundling failed 24138ms node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server/node/render.js (1220 modules)
+Web Bundling failed 24162ms node_modules/expo-router/entry.js (1255 modules)
+
+Metro error: As of SDK 56, expo-router is no longer compatible with react-navigation. For more information, see https://docs.expo.dev/router/migrate/sdk-55-to-56/. You can disable this check by setting the environment variable EXPO_ROUTER_DISABLE_RN_NAVIGATION_CHECK=1.
+
+Import stack:
+
+ src/app/_layout.tsx
+ | import "@react-navigation/native"
+
+ src/app (require.context)
+
+
+
+Web Bundled 3298ms .expo/static-tmp/_error.js (133 modules)
+Web Bundling failed 2174ms node_modules/expo-router/entry.js (1239 modules)
+
+Metro error: As of SDK 56, expo-router is no longer compatible with react-navigation. For more information, see https://docs.expo.dev/router/migrate/sdk-55-to-56/. You can disable this check by setting the environment variable EXPO_ROUTER_DISABLE_RN_NAVIGATION_CHECK=1.
+
+Import stack:
+
+ src/app/_layout.tsx
+ | import "@react-navigation/native"
+
+ src/app (require.context)
+
+
+
+λ Bundling failed 2200ms node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server/node/render.js (994 modules)

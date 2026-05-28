@@ -59,3 +59,10 @@ async def confirm_arrival(
     service: RideService = Depends(get_ride_service)
 ):
     return await service.confirm_arrival(ride_id, passenger_id)
+
+@router.get("/{ride_id}", response_model=RideRead)
+async def get_ride(
+    ride_id: UUID,
+    service: RideService = Depends(get_ride_service)
+):
+    return await service.get_ride(ride_id)

@@ -1,62 +1,107 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, TouchableOpacity, ScrollView, RefreshControl } from 'react-native';
+import { useRouter } from 'expo-router';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import { useAuth } from '@/context/AuthContext';
+import { api } from '@/api/client';
+import { Spacing } from '@/constants/theme';
+import { CreditBalance } from '@/types/api';
 
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
-  return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+export default function DashboardScreen() {
+  const { user, logout } = useAuth();
+  const [mode, setMode] = useState<'passenger' | 'driver'>('passenger');
+  const [balance, setBalance] = useState<CreditBalance | null>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const router = useRouter();
 
-export default function HomeScreen() {
+  const fetchBalance = async () => {
+    if (!user) return;
+    try {
+      const data = await api.credits.getBalance(user.user_id);
+      setBalance(data);
+    } catch (error) {
+      console.error('Failed to fetch balance', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchBalance();
+  }, [user]);
+
+  const onRefresh = async () => {
+    setIsRefreshing(true);
+    await fetchBalance();
+    setIsRefreshing(false);
+  };
+
+  if (!user) return null;
+
   return (
     <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
+      <ThemedView style={styles.header}>
+        <ThemedView>
+          <ThemedText type="default">Namaste, {user.full_name}</ThemedText>
+          <ThemedText type="small">Balance: {balance?.balance ?? 0} Credits</ThemedText>
+        </ThemedView>
+        <TouchableOpacity onPress={logout}>
+          <ThemedText style={styles.logoutText}>Logout</ThemedText>
+        </TouchableOpacity>
+      </ThemedView>
+
+      <ThemedView style={styles.toggleContainer}>
+        <TouchableOpacity
+          style={[styles.toggleButton, mode === 'passenger' && styles.toggleActive]}
+          onPress={() => setMode('passenger')}
+        >
+          <ThemedText style={[styles.toggleText, mode === 'passenger' && styles.toggleTextActive]}>
+            Passenger
           </ThemedText>
-        </ThemedView>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.toggleButton, mode === 'driver' && styles.toggleActive]}
+          onPress={() => setMode('driver')}
+        >
+          <ThemedText style={[styles.toggleText, mode === 'driver' && styles.toggleTextActive]}>
+            Driver
+          </ThemedText>
+        </TouchableOpacity>
+      </ThemedView>
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
-
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
-
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
+      <ScrollView
+        contentContainerStyle={styles.content}
+        refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}
+      >
+        {mode === 'passenger' ? (
+          <ThemedView style={styles.modeSection}>
+            <ThemedText type="subtitle">Find a Ride</ThemedText>
+            <TouchableOpacity style={styles.actionCard} onPress={() => router.push('/passenger/search')}>
+              <ThemedText type="default">Search for Routes</ThemedText>
+              <ThemedText type="small">Find drivers going your way</ThemedText>
+            </TouchableOpacity>
+          </ThemedView>
+        ) : (
+          <ThemedView style={styles.modeSection}>
+            <ThemedText type="subtitle">Share a Ride</ThemedText>
+            {user.role !== 'driver' && (
+              <ThemedView style={styles.warningCard}>
+                <ThemedText type="small">You need to be verified as a driver to publish routes.</ThemedText>
+                <TouchableOpacity onPress={() => router.push('/kyc/submit')}>
+                  <ThemedText style={styles.linkText}>Complete KYC</ThemedText>
+                </TouchableOpacity>
+              </ThemedView>
+            )}
+            <TouchableOpacity
+              style={[styles.actionCard, user.role !== 'driver' && styles.cardDisabled]}
+              onPress={() => router.push('/driver/publish')}
+              disabled={user.role !== 'driver'}
+            >
+              <ThemedText type="default">Publish Route</ThemedText>
+              <ThemedText type="small">Offer seats on your next trip</ThemedText>
+            </TouchableOpacity>
+          </ThemedView>
+        )}
+      </ScrollView>
     </ThemedView>
   );
 }
@@ -64,35 +109,78 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+  },
+  header: {
     flexDirection: 'row',
-  },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
+    justifyContent: 'space-between',
     alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
+    padding: Spacing.four,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
   },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
+  logoutText: {
+    color: '#FF3B30',
+  },
+  toggleContainer: {
+    flexDirection: 'row',
+    padding: Spacing.two,
+    backgroundColor: '#f0f0f0',
+    margin: Spacing.four,
+    borderRadius: 10,
+  },
+  toggleButton: {
     flex: 1,
+    paddingVertical: Spacing.two,
+    alignItems: 'center',
+    borderRadius: 8,
+  },
+  toggleActive: {
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
+  },
+  toggleText: {
+    color: '#666',
+    fontWeight: '600',
+  },
+  toggleTextActive: {
+    color: '#007AFF',
+  },
+  content: {
     paddingHorizontal: Spacing.four,
+  },
+  modeSection: {
     gap: Spacing.four,
   },
-  title: {
-    textAlign: 'center',
+  actionCard: {
+    backgroundColor: '#fff',
+    padding: Spacing.four,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#eee',
+    gap: Spacing.one,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 1,
   },
-  code: {
-    textTransform: 'uppercase',
+  cardDisabled: {
+    opacity: 0.5,
   },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+  warningCard: {
+    backgroundColor: '#FFFBE6',
+    padding: Spacing.three,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#FFE58F',
+  },
+  linkText: {
+    color: '#007AFF',
+    fontWeight: '600',
+    marginTop: Spacing.one,
   },
 });

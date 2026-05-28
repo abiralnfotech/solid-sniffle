@@ -97,7 +97,11 @@ The mobile app is configured to automatically detect your computer's IP address 
 Run tests using `pytest`:
 
 ```bash
-PYTHONPATH=. pytest
+# Ensure dependencies are installed
+pip install pytest-asyncio httpx
+
+# Run the tests from the root directory
+PYTHONPATH=. python -m pytest
 ```
 
 ## API Structure

@@ -20,6 +20,7 @@ class RideStatus(str, Enum):
     requested = "requested"
     accepted = "accepted"
     active = "active"
+    awaiting_confirmation = "awaiting_confirmation"
     completed = "completed"
     cancelled = "cancelled"
 
@@ -89,11 +90,53 @@ class Ride(SQLModel, table=True):
     status: RideStatus = Field(default=RideStatus.requested)
     fixed_fare_credits: int = Field(gt=0)
     seat_count: int = Field(default=1, gt=0)
+    started_at: Optional[datetime] = Field(default=None, sa_column=Column(TIMESTAMP(timezone=True)))
+    ended_at: Optional[datetime] = Field(default=None, sa_column=Column(TIMESTAMP(timezone=True)))
     created_at: datetime = Field(
         default_factory=datetime.utcnow,
         sa_column=Column(TIMESTAMP(timezone=True), server_default=text("CURRENT_TIMESTAMP"), nullable=False)
     )
     updated_at: datetime = Field(
+        default_factory=datetime.utcnow,
+        sa_column=Column(TIMESTAMP(timezone=True), server_default=text("CURRENT_TIMESTAMP"), nullable=False)
+    )
+
+class RideReview(SQLModel, table=True):
+    __tablename__ = "ride_reviews"
+
+    review_id: UUID = Field(default_factory=uuid4, primary_key=True)
+    ride_id: UUID = Field(foreign_key="rides.ride_id")
+    reviewer_id: UUID = Field(foreign_key="users.user_id")
+    reviewee_id: UUID = Field(foreign_key="users.user_id")
+    is_good: bool = Field(description="True for Good Experience, False for Bad Experience")
+    flag_reason: Optional[FlagReason] = Field(default=None)
+    comment: Optional[str] = Field(default=None, max_length=500)
+    created_at: datetime = Field(
+        default_factory=datetime.utcnow,
+        sa_column=Column(TIMESTAMP(timezone=True), server_default=text("CURRENT_TIMESTAMP"), nullable=False)
+    )
+
+class LocationUpdate(SQLModel, table=True):
+    __tablename__ = "location_updates"
+
+    update_id: UUID = Field(default_factory=uuid4, primary_key=True)
+    ride_id: UUID = Field(foreign_key="rides.ride_id")
+    driver_id: UUID = Field(foreign_key="users.user_id")
+    location: Any = Field(sa_column=Column(Geography(geometry_type='POINT', srid=4326), nullable=False))
+    timestamp: datetime = Field(
+        default_factory=datetime.utcnow,
+        sa_column=Column(TIMESTAMP(timezone=True), server_default=text("CURRENT_TIMESTAMP"), nullable=False)
+    )
+
+class SOSAlert(SQLModel, table=True):
+    __tablename__ = "sos_alerts"
+
+    sos_id: UUID = Field(default_factory=uuid4, primary_key=True)
+    ride_id: UUID = Field(foreign_key="rides.ride_id")
+    user_id: UUID = Field(foreign_key="users.user_id")
+    location: Any = Field(sa_column=Column(Geography(geometry_type='POINT', srid=4326), nullable=False))
+    is_resolved: bool = Field(default=False)
+    created_at: datetime = Field(
         default_factory=datetime.utcnow,
         sa_column=Column(TIMESTAMP(timezone=True), server_default=text("CURRENT_TIMESTAMP"), nullable=False)
     )

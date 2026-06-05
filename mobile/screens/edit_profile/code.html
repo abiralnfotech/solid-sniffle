@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Edit Profile - Sahayatri</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tap-highlight-transparent {
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9ff;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#ecf1ff",
+                        "primary": "#004532",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#1b6b51",
+                        "on-surface-variant": "#3f4944",
+                        "background": "#f9f9ff",
+                        "tertiary": "#00415f",
+                        "on-secondary-fixed": "#2f1500",
+                        "on-primary-fixed-variant": "#00513b",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#c9e6ff",
+                        "secondary": "#904d00",
+                        "primary-container": "#065f46",
+                        "on-error": "#ffffff",
+                        "on-background": "#111c2d",
+                        "outline-variant": "#bec9c2",
+                        "inverse-primary": "#8bd6b6",
+                        "tertiary-container": "#005980",
+                        "surface-container-high": "#dee8ff",
+                        "secondary-fixed-dim": "#ffb77d",
+                        "on-secondary-container": "#663500",
+                        "on-surface": "#111c2d",
+                        "on-primary-fixed": "#002116",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#d8e3fb",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#89ceff",
+                        "on-tertiary-fixed": "#001e2f",
+                        "on-primary-container": "#8bd6b7",
+                        "surface-bright": "#f9f9ff",
+                        "on-tertiary-container": "#8bcfff",
+                        "surface-dim": "#cfdaf2",
+                        "surface": "#f9f9ff",
+                        "surface-container-low": "#f0f3ff",
+                        "primary-fixed": "#a6f2d1",
+                        "on-tertiary-fixed-variant": "#004c6e",
+                        "primary-fixed-dim": "#8bd6b6",
+                        "on-secondary-fixed-variant": "#6e3900",
+                        "secondary-container": "#fe932c",
+                        "surface-variant": "#d8e3fb",
+                        "secondary-fixed": "#ffdcc3",
+                        "outline": "#6f7973",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#e7eeff",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#263143"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "sm": "8px",
+                        "gutter": "16px",
+                        "xs": "4px",
+                        "margin-desktop": "32px",
+                        "md": "16px",
+                        "margin-mobile": "16px",
+                        "lg": "24px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top Navigation -->
+<header class="fixed top-0 w-full z-50 bg-surface shadow-sm px-margin-mobile md:px-margin-desktop py-base flex flex-col w-full">
+<div class="flex items-center justify-between h-14">
+<button class="w-10 h-10 flex items-center justify-center rounded-full active:scale-95 transition-transform" onclick="window.history.back()">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Edit Profile</h1>
+<div class="w-10 h-10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-weight="fill">verified_user</span>
+</div>
+</div>
+</header>
+<main class="pt-20 pb-32 px-margin-mobile md:px-margin-desktop max-w-xl mx-auto space-y-md">
+<!-- Community Status Section (Bento Style) -->
+<section class="grid grid-cols-2 gap-sm">
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_12px_rgba(6,95,70,0.06)] border border-outline-variant/30 flex flex-col items-center justify-center text-center">
+<div class="bg-secondary-container/20 text-on-secondary-container px-3 py-1 rounded-full flex items-center gap-1 mb-2">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-md text-label-md">Verified</span>
+</div>
+<p class="font-body-sm text-on-surface-variant">Identity status confirmed via Citizenship ID</p>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_12px_rgba(6,95,70,0.06)] border border-outline-variant/30 flex flex-col items-center justify-center text-center">
+<div class="text-primary font-headline-sm font-bold mb-1">4.9/5.0</div>
+<div class="text-secondary font-label-md text-label-md font-bold uppercase tracking-wider">Trust Level: High</div>
+<p class="font-body-sm text-on-surface-variant mt-1">Sahayatri Goodwill</p>
+</div>
+</section>
+<!-- Personal Information Section -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_12px_rgba(6,95,70,0.06)] border border-outline-variant/30 space-y-md">
+<div class="flex items-center gap-sm mb-base">
+<span class="material-symbols-outlined text-primary">person</span>
+<h2 class="font-headline-sm text-headline-sm text-primary">Personal Information</h2>
+</div>
+<div class="space-y-sm">
+<div>
+<label class="font-label-md text-label-md text-on-surface-variant ml-1 mb-1 block">Full Name</label>
+<input class="w-full h-12 px-md rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none bg-surface transition-all font-body-md" type="text" value="Arjun Thapa"/>
+</div>
+<div>
+<label class="font-label-md text-label-md text-on-surface-variant ml-1 mb-1 block">Phone Number</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 font-body-md text-on-surface-variant">+977</span>
+<input class="w-full h-12 pl-16 pr-md rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none bg-surface transition-all font-body-md" type="tel" value="9841234567"/>
+</div>
+</div>
+<div>
+<label class="font-label-md text-label-md text-on-surface-variant ml-1 mb-1 block">Email Address</label>
+<input class="w-full h-12 px-md rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none bg-surface transition-all font-body-md" type="email" value="arjun.thapa@email.com"/>
+</div>
+</div>
+</div>
+<!-- Driver Settings Section (Conditional) -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_12px_rgba(6,95,70,0.06)] border border-outline-variant/30 space-y-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">directions_car</span>
+<h2 class="font-headline-sm text-headline-sm text-primary">Driver Settings</h2>
+</div>
+<div class="bg-primary/10 text-primary px-3 py-1 rounded-full font-label-md text-label-md">Active</div>
+</div>
+<div class="space-y-sm">
+<div>
+<label class="font-label-md text-label-md text-on-surface-variant ml-1 mb-1 block">Vehicle Type</label>
+<div class="grid grid-cols-3 gap-sm">
+<button class="h-10 border-2 border-primary bg-primary/5 text-primary rounded-lg font-label-md flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[18px]">two_wheeler</span> Bike
+                        </button>
+<button class="h-10 border border-outline-variant text-on-surface-variant rounded-lg font-label-md flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[18px]">electric_scooter</span> Scooter
+                        </button>
+<button class="h-10 border border-outline-variant text-on-surface-variant rounded-lg font-label-md flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[18px]">directions_car</span> Car
+                        </button>
+</div>
+</div>
+<div>
+<label class="font-label-md text-label-md text-on-surface-variant ml-1 mb-1 block">Plate Number</label>
+<input class="w-full h-12 px-md rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none bg-surface transition-all font-body-md uppercase" placeholder="e.g. BA 2 PA 1234" type="text"/>
+</div>
+<div>
+<label class="font-label-md text-label-md text-on-surface-variant ml-1 mb-1 block">Driver's License Photo</label>
+<div class="relative w-full aspect-video rounded-lg overflow-hidden border-2 border-dashed border-outline-variant group cursor-pointer hover:border-primary transition-colors">
+<img alt="license placeholder" class="w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 transition-all" data-alt="A close-up photograph of a professional identification card lying on a clean white surface. The card has a modern minimalist layout with a small profile photo placeholder and secure holographic elements. The background is a crisp, bright workspace with soft, diffused lighting and a high-key aesthetic consistent with a corporate and reliable mobile application theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBt9Drwqk-fcK-gqDtPmJYhKf9N_kNg45NtLAQVoosChIujAsndh-aqFjOdUyUtSNrirBoqs8BKpy2aB8t6Y3U6Ke5ZityhGMM7Ru8gnWHdfHWuC7Fbr32_lDDorpy8qXofbxVswKAElHk1qCByr2994VhNll_KlAhAsd_iVwBHALyh6pi3tRBeAYB9DeZN0uLum9PHBUTe-AjRxPb4zPDvbaE8mbN6l3KQWKp9LtHbvkHUI80fyiYKJ_hkfvHHk_zZzmN52lhg6xc"/>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[32px] mb-1">add_a_photo</span>
+<span class="font-label-md">Update License Image</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Emergency Contacts Section -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_12px_rgba(6,95,70,0.06)] border border-outline-variant/30 space-y-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-error">emergency</span>
+<h2 class="font-headline-sm text-headline-sm text-primary">Emergency Contacts</h2>
+</div>
+<div class="space-y-sm">
+<div class="flex items-center gap-md p-sm bg-surface rounded-lg border border-outline-variant/30">
+<div class="w-10 h-10 rounded-full bg-error-container/30 flex items-center justify-center text-error">
+<span class="material-symbols-outlined">call</span>
+</div>
+<div class="flex-1">
+<div class="font-body-md font-bold">Laxman Thapa</div>
+<div class="font-body-sm text-on-surface-variant">Father • +977 9801234567</div>
+</div>
+<button class="text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+<div class="flex items-center gap-md p-sm bg-surface rounded-lg border border-outline-variant/30">
+<div class="w-10 h-10 rounded-full bg-error-container/30 flex items-center justify-center text-error">
+<span class="material-symbols-outlined">call</span>
+</div>
+<div class="flex-1">
+<div class="font-body-md font-bold">Sita Sharma</div>
+<div class="font-body-sm text-on-surface-variant">Spouse • +977 9812345678</div>
+</div>
+<button class="text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+<button class="w-full h-12 rounded-lg border-2 border-dashed border-primary/40 text-primary font-label-md flex items-center justify-center gap-sm hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined">add</span> Add New Contact
+                </button>
+</div>
+</div>
+<!-- Account Settings Section -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_12px_rgba(6,95,70,0.06)] border border-outline-variant/30 space-y-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">settings</span>
+<h2 class="font-headline-sm text-headline-sm text-primary">Account Settings</h2>
+</div>
+<div class="flex items-center justify-between p-sm hover:bg-surface-variant/20 rounded-lg transition-colors cursor-pointer" onclick="toggleSwitch('biometric')">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant">fingerprint</span>
+<span class="font-body-md">Biometric Login</span>
+</div>
+<div class="w-12 h-6 rounded-full bg-primary relative transition-colors duration-200" id="biometric-switch">
+<div class="absolute right-1 top-1 w-4 h-4 rounded-full bg-white transition-all duration-200 shadow-sm translate-x-0"></div>
+</div>
+</div>
+<hr class="border-outline-variant/30"/>
+<button class="w-full flex items-center justify-between p-sm text-error hover:bg-error/5 rounded-lg transition-colors group">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined">delete_forever</span>
+<span class="font-body-md font-bold">Delete Account</span>
+</div>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+</div>
+</main>
+<!-- Fixed Bottom Actions -->
+<div class="fixed bottom-0 w-full bg-surface-container shadow-[0_-4px_12px_rgba(6,95,70,0.08)] px-margin-mobile md:px-margin-desktop py-md z-50">
+<div class="max-w-xl mx-auto flex gap-md">
+<button class="flex-1 h-12 bg-primary text-white rounded-xl font-bold text-body-md shadow-lg active:scale-95 transition-transform">
+                Save Changes
+            </button>
+</div>
+</div>
+<script>
+        function toggleSwitch(id) {
+            const sw = document.getElementById(id + '-switch');
+            const knob = sw.querySelector('div');
+            
+            if (sw.classList.contains('bg-primary')) {
+                sw.classList.remove('bg-primary');
+                sw.classList.add('bg-outline-variant');
+                knob.style.transform = 'translateX(-24px)';
+            } else {
+                sw.classList.remove('bg-outline-variant');
+                sw.classList.add('bg-primary');
+                knob.style.transform = 'translateX(0)';
+            }
+        }
+    </script>
+</body></html>

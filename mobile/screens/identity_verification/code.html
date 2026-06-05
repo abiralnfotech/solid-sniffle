@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Sahayatri KYC Verification</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tap-highlight-transparent { -webkit-tap-highlight-color: transparent; }
+        input:focus { outline: none; }
+        .kyc-card-shadow { box-shadow: 0 8px 32px rgba(6, 95, 70, 0.08); }
+        .glass-surface { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#e7eeff",
+                        "tertiary-fixed-dim": "#89ceff",
+                        "secondary-fixed": "#ffdcc3",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#663500",
+                        "tertiary": "#00415f",
+                        "secondary": "#904d00",
+                        "surface-variant": "#d8e3fb",
+                        "secondary-fixed-dim": "#ffb77d",
+                        "on-tertiary-fixed": "#001e2f",
+                        "on-primary-fixed-variant": "#00513b",
+                        "background": "#f9f9ff",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#111c2d",
+                        "primary-container": "#065f46",
+                        "primary-fixed-dim": "#8bd6b6",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#6f7973",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#8bd6b7",
+                        "on-secondary-fixed-variant": "#6e3900",
+                        "surface-tint": "#1b6b51",
+                        "surface-container-highest": "#d8e3fb",
+                        "surface": "#f9f9ff",
+                        "on-surface-variant": "#3f4944",
+                        "inverse-primary": "#8bd6b6",
+                        "surface-container-high": "#dee8ff",
+                        "surface-container-low": "#f0f3ff",
+                        "tertiary-fixed": "#c9e6ff",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#cfdaf2",
+                        "on-surface": "#111c2d",
+                        "on-tertiary-fixed-variant": "#004c6e",
+                        "inverse-surface": "#263143",
+                        "on-secondary-fixed": "#2f1500",
+                        "tertiary-container": "#005980",
+                        "primary-fixed": "#a6f2d1",
+                        "outline-variant": "#bec9c2",
+                        "inverse-on-surface": "#ecf1ff",
+                        "primary": "#004532",
+                        "on-primary-fixed": "#002116",
+                        "on-tertiary-container": "#8bcfff",
+                        "surface-bright": "#f9f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#fe932c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "32px",
+                        "base": "4px",
+                        "margin-mobile": "16px",
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top Navigation Anchor (Manual construction based on JSON spec) -->
+<header class="fixed top-0 w-full z-50 bg-surface shadow-sm px-margin-mobile md:px-margin-desktop py-base flex items-center justify-between">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform" data-icon="arrow_back">arrow_back</span>
+<span class="font-headline-md text-headline-md font-bold text-primary">Sahayatri</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-icon="verified_user">verified_user</span>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="A professional close-up portrait of a trustworthy person for a profile photo, captured in high-key soft studio lighting with a neutral gray background. The subject has a warm, confident expression. The overall aesthetic is clean, modern, and light-mode compatible, emphasizing clarity and security in a corporate-modern style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcYOdDozireI5K9hnW-anc-HVq_qA2P7NPefhqFKqi8ekxtUZPz_DjCI92u5z32WoFusPDmpYA2Jfy3w8aAm2NoJt9AfCgghRmzsrWhp-GhdtnhsWIC2DR9PqX1LVjj6stHYkK-8Af5ln72eJrAng5iXzH7ckfB66GnmDrMfadSwjUSmecVjyl4BgaOdAz2jBnMNjuKtylVuwBkFEx0T9woapUrjFtl0qQ7Bf98v9Uo2XBTCBPtDzo1YLv_AgOuwVgGGaE6CK643g"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-32 px-margin-mobile md:px-margin-desktop max-w-4xl mx-auto">
+<!-- Progress Indicator -->
+<div class="mb-lg space-y-sm">
+<div class="flex justify-between items-end">
+<h1 class="font-headline-sm text-headline-sm text-primary">Identity Verification</h1>
+<span class="font-label-md text-label-md text-on-surface-variant">Step 2 of 3</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[66.6%] transition-all duration-700 ease-out"></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="info">info</span>
+                Community Safety Verification: Helping build a trusted network in Nepal.
+            </p>
+</div>
+<!-- Critical Error Banner (Hidden by default) -->
+<div class="hidden animate-in fade-in slide-in-from-top-4 duration-300 mb-md bg-error-container p-md rounded-xl border border-error/20 flex items-start gap-md" id="duplicate-error">
+<span class="material-symbols-outlined text-error" data-icon="report">report</span>
+<div>
+<h3 class="font-headline-sm text-sm font-bold text-on-error-container">CRITICAL ERROR</h3>
+<p class="font-body-sm text-on-error-container opacity-90">This identity is already linked to an active account. Please contact support if you believe this is an error.</p>
+</div>
+</div>
+<!-- Verification Form Card -->
+<div class="bg-surface-container-lowest p-md md:p-lg rounded-xl kyc-card-shadow border border-outline-variant/30 space-y-lg">
+<!-- ID Input -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider" for="id_number">Citizenship / National ID Number</label>
+<div class="relative group">
+<span class="absolute left-md top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="badge">badge</span>
+<input class="w-full pl-12 pr-md py-3 bg-surface border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all font-body-md" id="id_number" placeholder="Enter your 12-digit ID number" type="text"/>
+</div>
+</div>
+<!-- Upload Zones Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Front Side -->
+<div class="space-y-xs">
+<span class="font-label-md text-label-md text-on-surface-variant">Document Front</span>
+<div class="relative h-48 border-2 border-dashed border-outline-variant rounded-xl bg-surface-container-low hover:bg-surface-container-high transition-colors flex flex-col items-center justify-center cursor-pointer group">
+<span class="material-symbols-outlined text-primary opacity-60 group-hover:scale-110 transition-transform text-[32px]" data-icon="add_a_photo">add_a_photo</span>
+<p class="font-body-sm mt-xs text-on-surface-variant">Tap to upload</p>
+<div class="absolute inset-2 rounded-lg overflow-hidden hidden" id="preview-front">
+<img class="w-full h-full object-cover" data-alt="A detailed macro shot of a blue identity card with security holographic patterns reflecting light in a professional, clean environment. The lighting is bright and high-key, highlighting the official document's textures and quality. The style is modern, trustworthy, and minimal, consistent with a high-security mobile application aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGkTKHMm-zjX8TZ5sFVrJlTiLQ5DaL4oxPPBg3eAWvRrn8di-lwUWwO6K8ofmiVj3XPoGoeUOmSdCev-IjSN_Lvl-2XWvR9PgXhhqcSRKg8KDaAXmxpV6T_AOnxF80jQKRwAs94rr8Pl0dVC6HCL129DMoJXXxUHYfbEas-nubGVv4XMiub5LjsLJUk6yIw7EmpsBwXUaTCpuCMIp6NLZ07hWBOE0HKN7mVO72qN7Mg5SPAIyhoeghb1qtMmid1Qqf6a_giFhdv3g"/>
+</div>
+</div>
+</div>
+<!-- Back Side -->
+<div class="space-y-xs">
+<span class="font-label-md text-label-md text-on-surface-variant">Document Back</span>
+<div class="relative h-48 border-2 border-dashed border-outline-variant rounded-xl bg-surface-container-low hover:bg-surface-container-high transition-colors flex flex-col items-center justify-center cursor-pointer group">
+<span class="material-symbols-outlined text-primary opacity-60 group-hover:scale-110 transition-transform text-[32px]" data-icon="add_a_photo">add_a_photo</span>
+<p class="font-body-sm mt-xs text-on-surface-variant">Tap to upload</p>
+<div class="absolute inset-2 rounded-lg overflow-hidden hidden" id="preview-back">
+<img class="w-full h-full object-cover" data-alt="A professional close-up of the reverse side of a national identification card showing barcodes and security text. The image is captured in a high-contrast, clean setting with soft ambient shadows. The overall tone is clinical and trustworthy, featuring a palette of whites, light grays, and deep emerald accents consistent with the Sahayatri brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDszxXRwx3njzVGqRm1ladKkd6W3kyW3E5ubxW6Q9sd2a_zO3zJnzK2ck3UPwzHKJSBlZda_yfs8O_SZyOk3JNU1YvwzCgqxhn-WZVx9DqHwBHx1KxeVxe3rM7dhCrxgYgGYoa7Hfgg-3xWkn9QczjUXdD00ql-BpxiHaYL0qn6wCdvBQUA7Ad3maBnqO7_WVX1213zTdiLP700qWo7V6sEHPwhHBNF6FoJDXBh0mTGLM-ux6E5LvPQamtSjGXVIs34URIxjSQzxZc"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Driver Toggle -->
+<label class="flex items-center gap-md p-md bg-secondary-container/10 border border-secondary-container/20 rounded-xl cursor-pointer hover:bg-secondary-container/20 transition-colors">
+<input class="w-6 h-6 rounded border-secondary-container text-secondary-container focus:ring-secondary-container transition-all" id="driver-toggle" type="checkbox"/>
+<div>
+<span class="font-headline-sm text-sm text-on-secondary-container block">I want to apply to be a Community Driver</span>
+<span class="font-body-sm text-xs text-on-secondary-container opacity-80">Help others travel safely and earn goodwill credits.</span>
+</div>
+</label>
+<!-- Conditional Driver License Upload -->
+<div class="hidden animate-in zoom-in-95 slide-in-from-top-2 duration-300 space-y-xs" id="driver-upload-zone">
+<span class="font-label-md text-label-md text-on-surface-variant">Upload Driver's License</span>
+<div class="h-40 border-2 border-dashed border-secondary-container/40 rounded-xl bg-secondary-fixed/10 flex flex-col items-center justify-center cursor-pointer group">
+<span class="material-symbols-outlined text-secondary-container text-[32px]" data-icon="drive_eta">drive_eta</span>
+<p class="font-body-sm mt-xs text-on-secondary-container">Add your license document</p>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="pt-md flex flex-col md:flex-row gap-md">
+<button class="flex-1 py-4 bg-primary-container text-on-primary-container font-bold rounded-xl shadow-lg hover:shadow-xl active:scale-[0.98] transition-all flex items-center justify-center gap-sm" id="submit-kyc">
+                    Submit for Verification
+                    <span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+<button class="flex-1 py-4 border border-outline-variant text-on-surface-variant font-bold rounded-xl hover:bg-surface-container transition-all">
+                    Save as Draft
+                </button>
+</div>
+</div>
+<!-- Trust Badges -->
+<div class="mt-xl grid grid-cols-2 md:grid-cols-4 gap-md">
+<div class="flex flex-col items-center text-center p-sm">
+<span class="material-symbols-outlined text-primary mb-xs" data-icon="lock_reset" data-weight="fill" style="font-variation-settings: 'FILL' 1;">lock_reset</span>
+<span class="font-label-md text-on-surface-variant">End-to-End Encrypted</span>
+</div>
+<div class="flex flex-col items-center text-center p-sm">
+<span class="material-symbols-outlined text-primary mb-xs" data-icon="shield_person" data-weight="fill" style="font-variation-settings: 'FILL' 1;">shield_person</span>
+<span class="font-label-md text-on-surface-variant">Manual Review</span>
+</div>
+<div class="flex flex-col items-center text-center p-sm">
+<span class="material-symbols-outlined text-primary mb-xs" data-icon="gavel" data-weight="fill" style="font-variation-settings: 'FILL' 1;">gavel</span>
+<span class="font-label-md text-on-surface-variant">Legal Compliance</span>
+</div>
+<div class="flex flex-col items-center text-center p-sm">
+<span class="material-symbols-outlined text-primary mb-xs" data-icon="support_agent" data-weight="fill" style="font-variation-settings: 'FILL' 1;">support_agent</span>
+<span class="font-label-md text-on-surface-variant">24/7 Assistance</span>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Shell (Hidden on mobile verification flows usually, but keeping skeleton for UI consistency as per rules) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface-container shadow-[0_-4px_12px_rgba(6,95,70,0.08)] px-margin-mobile flex justify-around items-center h-16">
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-40 grayscale">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-md text-[10px]">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-[10px]">Profile</span>
+</div>
+</nav>
+<script>
+        // Mock data logic simulation
+        const MOCK_DUPLICATE_ID = "9999-8888-7777";
+        const idInput = document.getElementById('id_number');
+        const errorBanner = document.getElementById('duplicate-error');
+        const submitBtn = document.getElementById('submit-kyc');
+        const driverToggle = document.getElementById('driver-toggle');
+        const driverZone = document.getElementById('driver-upload-zone');
+
+        // Real-time duplicate ID check
+        idInput.addEventListener('input', (e) => {
+            if (e.target.value === MOCK_DUPLICATE_ID) {
+                errorBanner.classList.remove('hidden');
+                submitBtn.disabled = true;
+                submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                idInput.classList.add('border-error', 'ring-error/20');
+            } else {
+                errorBanner.classList.add('hidden');
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                idInput.classList.remove('border-error', 'ring-error/20');
+            }
+        });
+
+        // Toggle Driver Upload Zone
+        driverToggle.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                driverZone.classList.remove('hidden');
+            } else {
+                driverZone.classList.add('hidden');
+            }
+        });
+
+        // Simple preview logic simulation for the upload zones
+        document.querySelectorAll('.border-dashed').forEach(zone => {
+            zone.addEventListener('click', () => {
+                const preview = zone.querySelector('div[id^="preview"]');
+                if (preview) {
+                    preview.classList.toggle('hidden');
+                }
+            });
+        });
+
+        // Submit Button Interaction
+        submitBtn.addEventListener('click', () => {
+            if(!submitBtn.disabled) {
+                const icon = submitBtn.querySelector('.material-symbols-outlined');
+                submitBtn.innerHTML = '<span class="animate-spin material-symbols-outlined">progress_activity</span> Processing...';
+                setTimeout(() => {
+                    alert('Identity details submitted for manual verification. This usually takes 2-4 hours.');
+                    window.location.reload();
+                }, 1500);
+            }
+        });
+    </script>
+</body></html>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Sahayatri - Dual-Mode Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#e7eeff",
+                        "tertiary-fixed-dim": "#89ceff",
+                        "secondary-fixed": "#ffdcc3",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#663500",
+                        "tertiary": "#00415f",
+                        "secondary": "#904d00",
+                        "surface-variant": "#d8e3fb",
+                        "secondary-fixed-dim": "#ffb77d",
+                        "on-tertiary-fixed": "#001e2f",
+                        "on-primary-fixed-variant": "#00513b",
+                        "background": "#f9f9ff",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#111c2d",
+                        "primary-container": "#065f46",
+                        "primary-fixed-dim": "#8bd6b6",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#6f7973",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#8bd6b7",
+                        "on-secondary-fixed-variant": "#6e3900",
+                        "surface-tint": "#1b6b51",
+                        "surface-container-highest": "#d8e3fb",
+                        "surface": "#f9f9ff",
+                        "on-surface-variant": "#3f4944",
+                        "inverse-primary": "#8bd6b6",
+                        "surface-container-high": "#dee8ff",
+                        "surface-container-low": "#f0f3ff",
+                        "tertiary-fixed": "#c9e6ff",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#cfdaf2",
+                        "on-surface": "#111c2d",
+                        "on-tertiary-fixed-variant": "#004c6e",
+                        "inverse-surface": "#263143",
+                        "on-secondary-fixed": "#2f1500",
+                        "tertiary-container": "#005980",
+                        "primary-fixed": "#a6f2d1",
+                        "outline-variant": "#bec9c2",
+                        "inverse-on-surface": "#ecf1ff",
+                        "primary": "#004532",
+                        "on-primary-fixed": "#002116",
+                        "on-tertiary-container": "#8bcfff",
+                        "surface-bright": "#f9f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#fe932c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "32px",
+                        "base": "4px",
+                        "margin-mobile": "16px",
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .mode-transition {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface selection:bg-primary-fixed-dim selection:text-on-primary-fixed overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface shadow-sm flex flex-col w-full px-margin-mobile md:px-margin-desktop py-base">
+<div class="flex items-center justify-between h-14">
+<div class="flex items-center gap-3">
+<img alt="User Profile" class="w-10 h-10 rounded-full object-cover border-2 border-primary-fixed" data-alt="A professional close-up portrait of a friendly individual with a warm expression, set against a clean, out-of-focus urban background. The lighting is soft and natural, emphasizing a trust-oriented atmosphere. The overall aesthetic is bright, modern, and high-quality, fitting a premium ride-sharing application's user profile identity with deep greens and clean whites." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDk6cbZzarvuja60iWNIGc3JVPGkQiZv_tKeTlJTQijxqv8q63M2ndEnlmbY6BHuCS-5KAyeM_BDRpODqcf7vZVfqHutF0ODIgO3s3sAxS6trlivuqVo2FKrqSMn5bRha8I3_KcqpwHY8akRZMCqkT5R_Bt8mwzAVanUIAYQ-pwR5OASyaSKLQyGrKO_P2WljW63Og2v8QvEtrgbiYSpSl3xUMxPMeBrlwFFzqG4SRTj9rrWl9RZYX-Bcj7rur1I6lXw5FOcdkXjBo"/>
+<span class="font-headline-md text-headline-md font-bold text-primary">Sahayatri</span>
+</div>
+<div class="flex items-center gap-4">
+<!-- Goodwill Credit Balance Badge -->
+<div class="hidden sm:flex items-center gap-2 bg-secondary-fixed px-3 py-1.5 rounded-full">
+<span class="material-symbols-outlined text-secondary text-[18px]" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="font-label-md text-label-md text-on-secondary-fixed">500 Credits</span>
+</div>
+<span class="material-symbols-outlined text-primary text-[24px]">verified_user</span>
+</div>
+</div>
+</header>
+<main class="pt-20 pb-24 min-h-screen">
+<!-- Dual Mode Toggle Container -->
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop mb-6">
+<div class="bg-surface-container rounded-full p-1.5 flex shadow-inner relative">
+<div class="absolute h-[calc(100%-12px)] top-1.5 left-1.5 bg-primary-container rounded-full transition-all duration-300 w-[calc(50%-6px)]" id="mode-slider"></div>
+<button class="flex-1 py-3 px-4 z-10 flex items-center justify-center gap-2 font-headline-sm text-headline-sm transition-colors text-on-primary-container" id="btn-passenger" onclick="switchMode('passenger')">
+<span class="material-symbols-outlined">person</span>
+                    PASSENGER MODE
+                </button>
+<button class="flex-1 py-3 px-4 z-10 flex items-center justify-center gap-2 font-headline-sm text-headline-sm transition-colors text-on-surface-variant" id="btn-driver" onclick="switchMode('driver')">
+<span class="material-symbols-outlined">directions_car</span>
+                    DRIVER MODE
+                </button>
+</div>
+</div>
+<!-- Content Canvas -->
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Left Side: Dynamic Map or Route Config -->
+<div class="relative min-h-[400px] lg:min-h-[calc(100vh-280px)] rounded-xl overflow-hidden shadow-lg bg-surface" id="left-panel">
+<!-- PASSENGER MAP VIEW -->
+<div class="absolute inset-0 z-0" id="passenger-map">
+<div class="w-full h-full bg-slate-200 flex items-center justify-center relative overflow-hidden" data-location="Kathmandu" style="background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px;">
+<!-- Simulated Map Markers -->
+<div class="absolute top-1/3 left-1/4 animate-bounce">
+<span class="material-symbols-outlined text-error text-[40px]" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<div class="absolute bottom-1/4 right-1/3">
+<span class="material-symbols-outlined text-primary text-[40px]" style="font-variation-settings: 'FILL' 1;">sports_motorsports</span>
+</div>
+<!-- Search Box Overlay -->
+<div class="absolute top-6 left-6 right-6 z-10">
+<div class="bg-white rounded-xl shadow-xl p-4 flex items-center gap-3">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="border-none focus:ring-0 w-full font-body-md text-body-md text-on-surface-variant placeholder:text-outline-variant" placeholder="Where are you going?" type="text"/>
+</div>
+</div>
+</div>
+</div>
+<!-- DRIVER ROUTE CREATOR -->
+<div class="hidden absolute inset-0 z-10 bg-white p-8 overflow-y-auto" id="driver-route">
+<h2 class="font-headline-md text-headline-md text-primary mb-6">Create New Route</h2>
+<div class="space-y-6">
+<div class="relative pl-8 space-y-8 before:content-[''] before:absolute before:left-3 before:top-2 before:bottom-2 before:w-0.5 before:bg-outline-variant">
+<div class="relative">
+<span class="absolute -left-8 top-0 material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">radio_button_checked</span>
+<label class="block font-label-md text-label-md text-on-surface-variant uppercase mb-2">Starting From</label>
+<input class="w-full border-outline-variant rounded-lg p-3 font-body-md" type="text" value="New Baneshwor, Kathmandu"/>
+</div>
+<div class="relative">
+<span class="absolute -left-8 top-0 material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<label class="block font-label-md text-label-md text-on-surface-variant uppercase mb-2">Destination</label>
+<input class="w-full border-outline-variant rounded-lg p-3 font-body-md" placeholder="Set destination" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Departure Time</label>
+<input class="w-full border-outline-variant rounded-lg p-3" type="time"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Seats Available</label>
+<select class="w-full border-outline-variant rounded-lg p-3">
+<option>1 Seat</option>
+<option selected="">2 Seats</option>
+<option>3 Seats</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-3">Vehicle Selection</label>
+<div class="grid grid-cols-2 gap-4">
+<button class="flex flex-col items-center justify-center p-4 border-2 border-primary bg-primary-fixed/20 rounded-xl transition-all">
+<span class="material-symbols-outlined text-[32px] mb-2">electric_scooter</span>
+<span class="font-label-md">Scooter</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 border-2 border-outline-variant rounded-xl hover:border-primary transition-all">
+<span class="material-symbols-outlined text-[32px] mb-2">directions_car</span>
+<span class="font-label-md">Sedan</span>
+</button>
+</div>
+</div>
+<button class="w-full bg-primary-container text-on-primary py-4 rounded-xl font-headline-sm shadow-md active:scale-95 transition-transform">
+                            Go Online &amp; Wait for Requests
+                        </button>
+</div>
+</div>
+</div>
+<!-- Right Side: Dynamic Lists -->
+<div class="flex flex-col gap-4" id="right-panel">
+<!-- PASSENGER: Driver Results -->
+<div class="space-y-4" id="passenger-results">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Available Sahayatris</h3>
+<span class="bg-surface-container px-3 py-1 rounded-full text-label-md text-on-surface-variant">3 Active Drivers</span>
+</div>
+<!-- Result Card 1 -->
+<div class="bg-surface rounded-xl p-4 shadow-sm border border-outline-variant hover:shadow-lg transition-all group cursor-pointer" onclick="openModal()">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-3">
+<img alt="Driver Profile" class="w-12 h-12 rounded-full object-cover" data-alt="A detailed, vibrant headshot of a reliable male driver in his 30s, smiling confidently. He is outdoors in a bright Nepalese city environment during the daytime. The lighting is vivid and clear, casting soft shadows. The image style is modern, professional, and captures a mood of trustworthiness and reliability for a community-based transportation app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLD14MsQG1FVepJu8XnfpNFEUTRaTPyEMSfK4scm2Q5Qewux5U8w3dgy2la0c2o224LQQpFFRrq6ot3xv8MyJMxVBuB06cLaK8FCYNXbo46DdTw6kJsE13INoTzZrRneI6hdJQX2iTuShKkmWcPDCvuOeSZhbnWbFpIdEyw4w1dHsr8OapD6dr2su77dYVk4_ss6SnZTzptceX40Mj5J3tIuLrkOXuyYMOkDXN4_VHNV3gz6saU6b-xcg-SHDi143FYdodh5hFImE"/>
+<div>
+<div class="flex items-center gap-1">
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Binod Thapa</h4>
+<span class="material-symbols-outlined text-secondary-container text-[18px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Suzuki Gixxer • Blue</p>
+</div>
+</div>
+<div class="text-right">
+<span class="block font-headline-sm text-headline-sm text-primary">45 CC</span>
+<span class="font-label-md text-label-md text-outline">Goodwill Cost</span>
+</div>
+</div>
+<div class="flex items-center gap-4 py-2 border-t border-b border-surface-variant my-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">event_seat</span>
+<span class="font-body-sm text-body-sm">1 Seat left</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">schedule</span>
+<span class="font-body-sm text-body-sm">Leaves in 10m</span>
+</div>
+</div>
+<p class="font-body-sm text-on-surface-variant italic">"Heading to Putalisadak via Bagbazar. Can drop anywhere on main road."</p>
+</div>
+<!-- Result Card 2 -->
+<div class="bg-surface rounded-xl p-4 shadow-sm border border-outline-variant hover:shadow-lg transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-3">
+<img alt="Driver Profile" class="w-12 h-12 rounded-full object-cover" data-alt="A high-resolution, bright portrait of a young female professional smiling warmly, conveying intelligence and trustworthiness. She is in a high-key lighting environment with a clean, blurred urban backdrop. The overall aesthetic is calm, professional, and optimized for a light-mode corporate UI, highlighting a high-trust community member." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABcPR-t-RO9KUuDMyPdaVSxXuT7iCgpqsBF8mMZMbeesDHJjT1ulkQa9nfBwXBSdmOoNwQ81qk5rtAf06mUy_srYGG9J92xlEloeDqXhNadxxhqw2W1kqUawn20knBtCj7Afu9utdiyxcMvWCFxHUTzu6pinuNefLHtrEt0ty9fcdaVaLGPVHsUc960Vzzfcf4JdouLAmRfyYHrJHySwmAqT39IWZ8Lgyi2w3CxXxlz0rXqKbftYeTVKiDmiCYhwbzLt-JzO3U-q4"/>
+<div>
+<div class="flex items-center gap-1">
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Prerana KC</h4>
+<span class="material-symbols-outlined text-secondary-container text-[18px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Vespa VXL • White</p>
+</div>
+</div>
+<div class="text-right">
+<span class="block font-headline-sm text-headline-sm text-primary">30 CC</span>
+<span class="font-label-md text-label-md text-outline">Goodwill Cost</span>
+</div>
+</div>
+<div class="flex items-center gap-4 py-2 border-t border-b border-surface-variant my-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">event_seat</span>
+<span class="font-body-sm text-body-sm">2 Seats left</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">schedule</span>
+<span class="font-body-sm text-body-sm">Leaves in 2m</span>
+</div>
+</div>
+</div>
+</div>
+<!-- DRIVER: Request Queue -->
+<div class="hidden space-y-4" id="driver-queue">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Request Queue</h3>
+<div class="flex items-center gap-2 bg-primary-fixed/20 px-3 py-1 rounded-full">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="text-label-md text-primary font-bold">LIVE</span>
+</div>
+</div>
+<!-- Request Card 1 -->
+<div class="bg-surface rounded-xl p-5 shadow-sm border-l-4 border-l-secondary-container">
+<div class="flex gap-4 mb-4">
+<img alt="Passenger Profile" class="w-14 h-14 rounded-full object-cover" data-alt="A clear, bright photograph of a young male student wearing a neat shirt, looking friendly and approachable. The background is a minimalist, modern educational setting with soft, high-key lighting. The visual style is crisp and professional, emphasizing the community and safety focus of the application through a clean and trustworthy appearance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8WwWQd5tr4fUiuaNuevdCggJX0_jHrC_SbnLtf9Y-4JGIowahUALhMAvkITkqFuYxjVbEb2KKJWeyFtocMbHqzEg4pi8mG4jwEgcp1ukyFpAdgDo-OcNlbA47WO_KhWitO34YfyhQn31k0RA1JM1RxugYTr7PVG_EPpcFROuTh0aOrptcT0aWsgX3kQwuDW7K8r12XXot4KJJCkCB79sb23xCyKdG7Ac9OdXHVGQqvLSTi_ZyIjXwNYdJVWuHUpIi6HAan_u6TGI"/>
+<div class="flex-1">
+<div class="flex justify-between">
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Aayush Shrestha</h4>
+<span class="text-primary font-bold font-body-sm">+50 CC</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant mt-1">
+<span class="material-symbols-outlined text-[16px]">group</span>
+<span class="font-body-sm text-body-sm">4 Mutual Friends</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant mt-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+<span class="font-body-sm text-body-sm">Pickup: Thapathali Gate</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<button class="bg-red-50 text-error font-bold py-3 rounded-lg border border-red-100 hover:bg-red-100 transition-colors">Decline</button>
+<button class="bg-primary-container text-on-primary font-bold py-3 rounded-lg hover:opacity-90 transition-opacity">Accept</button>
+</div>
+</div>
+<!-- Request Card 2 -->
+<div class="bg-surface rounded-xl p-5 shadow-sm border border-outline-variant opacity-80">
+<div class="flex gap-4 mb-4">
+<img alt="Passenger Profile" class="w-14 h-14 rounded-full object-cover" data-alt="A professional headshot of a woman in a corporate office setting, conveying reliability and composure. The lighting is bright and even, creating a clean, modern aesthetic. The color palette is dominated by neutral professional tones, fitting the corporate yet friendly identity of a community-driven transportation platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHSmrenyS0KSuPW82NFXzXOa0NrYZv-KXcXY-l1H6K23YT_BygNolz8l6z7Gil38FG3Qv3zwnwmHeTQkVnrKRjZdLByeEMt8JhTAjFqh8nDoIsI9v47zSMTkNazZav0Wr8wwpAe76_SnjBJTjvEWWNYkOvdjDKEyxUTMT3QLN-bv6u-E2G90EZn5VDSS9XPF3woU3cg8-SbDb6w5ezaqN07T2mTWlfAbubYEVvLOwjAEjkSdbkpbGCDBhUAAQrLh1vic1XevHKlIw"/>
+<div class="flex-1">
+<div class="flex justify-between">
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Rita Dahal</h4>
+<span class="text-primary font-bold font-body-sm">+40 CC</span>
+</div>
+<p class="font-body-sm text-on-surface-variant">Requested 2 seats</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<button class="bg-red-50 text-error font-bold py-3 rounded-lg border border-red-100">Decline</button>
+<button class="bg-primary-container text-on-primary font-bold py-3 rounded-lg">Accept</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container shadow-[0_-4px_12px_rgba(6,95,70,0.08)]">
+<div class="flex justify-around items-center h-16 w-full max-w-7xl mx-auto">
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">directions_car</span>
+<span class="font-label-md text-label-md">Rides</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label-md text-label-md">Wallet</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Profile</span>
+</button>
+</div>
+</nav>
+<!-- Modal: Seat Request Confirmation -->
+<div class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/40 backdrop-blur-sm" id="request-modal">
+<div class="bg-white rounded-2xl w-full max-w-md overflow-hidden animate-[scale-up_0.3s_ease-out]">
+<div class="p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-primary">Request a Seat</h3>
+<button class="text-outline hover:text-on-surface" onclick="closeModal()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="space-y-6">
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center gap-4">
+<div class="p-3 bg-secondary-fixed rounded-full text-secondary">
+<span class="material-symbols-outlined text-[32px]">sports_motorsports</span>
+</div>
+<div>
+<p class="font-body-md text-on-surface font-bold">Binod Thapa's Ride</p>
+<p class="font-body-sm text-on-surface-variant">Suzuki Gixxer • Kathmandu Path</p>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-md text-on-surface-variant">Your Balance</span>
+<span class="font-headline-sm text-headline-sm">500 CC</span>
+</div>
+<div class="flex justify-between items-center border-t border-surface-variant pt-4">
+<span class="font-body-md text-on-surface-variant">Seat Cost</span>
+<span class="font-headline-sm text-headline-sm text-error">-45 CC</span>
+</div>
+<div class="bg-amber-50 border border-amber-200 p-4 rounded-xl flex gap-3">
+<span class="material-symbols-outlined text-secondary-container">info</span>
+<p class="font-body-sm text-secondary">Goodwill Credits are non-monetary and facilitate mutual trust within the Sahayatri network.</p>
+</div>
+<button class="w-full bg-primary-container text-on-primary py-4 rounded-xl font-headline-sm shadow-md active:scale-95 transition-transform">
+                        Confirm Request
+                    </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+        function switchMode(mode) {
+            const slider = document.getElementById('mode-slider');
+            const btnP = document.getElementById('btn-passenger');
+            const btnD = document.getElementById('btn-driver');
+            
+            const pMap = document.getElementById('passenger-map');
+            const dRoute = document.getElementById('driver-route');
+            const pResults = document.getElementById('passenger-results');
+            const dQueue = document.getElementById('driver-queue');
+
+            if (mode === 'passenger') {
+                slider.style.left = '6px';
+                slider.style.width = 'calc(50% - 6px)';
+                btnP.classList.add('text-on-primary-container');
+                btnP.classList.remove('text-on-surface-variant');
+                btnD.classList.add('text-on-surface-variant');
+                btnD.classList.remove('text-on-primary-container');
+
+                pMap.classList.remove('hidden');
+                dRoute.classList.add('hidden');
+                pResults.classList.remove('hidden');
+                dQueue.classList.add('hidden');
+            } else {
+                slider.style.left = '50%';
+                slider.style.width = 'calc(50% - 6px)';
+                btnD.classList.add('text-on-primary-container');
+                btnD.classList.remove('text-on-surface-variant');
+                btnP.classList.add('text-on-surface-variant');
+                btnP.classList.remove('text-on-primary-container');
+
+                pMap.classList.add('hidden');
+                dRoute.classList.remove('hidden');
+                pResults.classList.add('hidden');
+                dQueue.classList.remove('hidden');
+            }
+        }
+
+        function openModal() {
+            const modal = document.getElementById('request-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('request-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on escape key
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+<style>
+        @keyframes scale-up {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</body></html>

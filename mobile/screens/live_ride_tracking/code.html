@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Sahayatri Live Tracking &amp; SOS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#e7eeff",
+                    "tertiary-fixed-dim": "#89ceff",
+                    "secondary-fixed": "#ffdcc3",
+                    "on-error-container": "#93000a",
+                    "on-secondary-container": "#663500",
+                    "tertiary": "#00415f",
+                    "secondary": "#904d00",
+                    "surface-variant": "#d8e3fb",
+                    "secondary-fixed-dim": "#ffb77d",
+                    "on-tertiary-fixed": "#001e2f",
+                    "on-primary-fixed-variant": "#00513b",
+                    "background": "#f9f9ff",
+                    "on-error": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#111c2d",
+                    "primary-container": "#065f46",
+                    "primary-fixed-dim": "#8bd6b6",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#6f7973",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#8bd6b7",
+                    "on-secondary-fixed-variant": "#6e3900",
+                    "surface-tint": "#1b6b51",
+                    "surface-container-highest": "#d8e3fb",
+                    "surface": "#f9f9ff",
+                    "on-surface-variant": "#3f4944",
+                    "inverse-primary": "#8bd6b6",
+                    "surface-container-high": "#dee8ff",
+                    "surface-container-low": "#f0f3ff",
+                    "tertiary-fixed": "#c9e6ff",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#cfdaf2",
+                    "on-surface": "#111c2d",
+                    "on-tertiary-fixed-variant": "#004c6e",
+                    "inverse-surface": "#263143",
+                    "on-secondary-fixed": "#2f1500",
+                    "tertiary-container": "#005980",
+                    "primary-fixed": "#a6f2d1",
+                    "outline-variant": "#bec9c2",
+                    "inverse-on-surface": "#ecf1ff",
+                    "primary": "#004532",
+                    "on-primary-fixed": "#002116",
+                    "on-tertiary-container": "#8bcfff",
+                    "surface-bright": "#f9f9ff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#fe932c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "32px",
+                    "base": "4px",
+                    "margin-mobile": "16px",
+                    "lg": "24px",
+                    "gutter": "16px",
+                    "xs": "4px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "sm": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .pulse-red {
+            animation: pulse-red 2s infinite;
+        }
+        @keyframes pulse-red {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(220, 38, 38, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+        }
+        #car-marker {
+            transition: all 3s linear;
+        }
+        .map-gradient-overlay {
+            background: linear-gradient(to bottom, rgba(249,249,255,0.9) 0%, rgba(249,249,255,0) 20%, rgba(249,249,255,0) 80%, rgba(249,249,255,0.9) 100%);
+        }
+        .emergency-shimmer {
+            background: linear-gradient(90deg, #ba1a1a 0%, #ff5449 50%, #ba1a1a 100%);
+            background-size: 200% auto;
+            animation: shimmer 2s linear infinite;
+        }
+        @keyframes shimmer {
+            to { background-position: 200% center; }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-fixed overflow-hidden">
+<!-- Top Navigation Bar (Shared Component Strategy) -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-inverse-surface shadow-sm transition-all duration-200">
+<div class="flex flex-col w-full px-margin-mobile md:px-margin-desktop py-base">
+<div class="flex items-center justify-between h-14">
+<div class="flex items-center gap-sm">
+<button class="p-base hover:bg-surface-variant/50 rounded-full active:scale-95 transition-all" onclick="history.back()">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed-dim">Sahayatri</h1>
+</div>
+<div class="flex items-center gap-md">
+<div class="bg-surface-container rounded-full px-sm py-1 flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary scale-75" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="font-label-md text-label-md text-primary">Secure Session</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Viewport (Full Map View) -->
+<main class="relative h-screen w-full pt-14 pb-safe overflow-hidden">
+<!-- Live Tracking Map Canvas -->
+<div class="absolute inset-0 z-0 bg-surface-container">
+<div class="relative w-full h-full">
+<!-- Map Background -->
+<img class="w-full h-full object-cover grayscale-[20%] opacity-80" data-alt="A detailed digital navigation map showing the winding urban streets of Kathmandu, Nepal, with subtle green and grey color coding for routes and buildings. The aesthetic is clean and modern, representing a professional ride-sharing interface with high-legibility road networks and minimal clutter. Soft daylight illuminates the map area, creating a calm and reliable atmosphere for tracking." data-location="Kathmandu" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmCrkP299aLvsmSk3VECZyRhVLvV9RQkwdh2hi9ns-WH7m41CLsF7K-B8N3ryVKip6CF6Wn-_UjY-lgBiztSziLuIpFVKatxM6s_TlEyO-AVG7M9tZoMbDpsJ-Bp40XJti8J9KL27Sx3BSRo2qwls-QQ_kmpWYY6hE65ha4s5aQN8KefraHNpRBEN9WGVSCg4mfHBFh7838rPLO9U-TR-QhROvSWy2DSG3bPeThWOmhTrTAvMIR3_vkaZF4aFmmd2ljcaqtKu4PY8"/>
+<div class="absolute inset-0 map-gradient-overlay pointer-events-none"></div>
+<!-- Animated Route Line (Mockup with SVG) -->
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 1000">
+<path d="M200,800 Q400,600 600,700 T900,300" fill="none" id="route-path" opacity="0.4" stroke="#004532" stroke-dasharray="8,8" stroke-width="4"></path>
+</svg>
+<!-- Live Marker -->
+<div class="absolute z-10" id="car-marker" style="left: 20%; top: 80%;">
+<div class="relative">
+<!-- Ripple Effect -->
+<div class="absolute -inset-4 bg-primary/20 rounded-full animate-ping"></div>
+<div class="bg-primary text-on-primary w-12 h-12 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+<span class="material-symbols-outlined">directions_car</span>
+</div>
+<!-- Driver Tooltip -->
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-surface p-2 rounded-lg shadow-md border border-outline-variant whitespace-nowrap">
+<p class="font-label-md text-primary font-bold">Ramesh T.</p>
+<p class="text-[10px] text-on-surface-variant">4.9 ★ • Toyota Hilux</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Ride in Progress Banner -->
+<div class="absolute top-20 left-1/2 -translate-x-1/2 w-[90%] max-w-lg z-20">
+<div class="bg-surface/95 backdrop-blur-md border border-primary/10 rounded-xl shadow-lg p-md flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-primary-fixed-dim flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">route</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Ride in Progress</span>
+<span class="font-label-md text-label-md text-primary font-bold animate-pulse">LIVE</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">To: Thamel City Center</h2>
+</div>
+<div class="text-right">
+<p class="font-headline-sm text-headline-sm font-bold text-primary">12</p>
+<p class="font-label-md text-label-md text-on-surface-variant">mins</p>
+</div>
+</div>
+</div>
+<!-- SOS FAB -->
+<button class="fixed bottom-lg right-margin-mobile z-40 bg-[#DC2626] text-white w-20 h-20 rounded-full shadow-[0_10px_25px_rgba(220,38,38,0.4)] flex flex-col items-center justify-center pulse-red active:scale-90 transition-all duration-150 group" id="sos-btn">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">emergency</span>
+<span class="text-[14px] font-bold tracking-tighter mt-1">SOS</span>
+</button>
+<!-- Dynamic Bottom Sheet: Ride Info -->
+<div class="absolute bottom-0 w-full z-30 pointer-events-none">
+<div class="bg-surface border-t border-outline-variant rounded-t-3xl shadow-[0_-10px_30px_rgba(0,0,0,0.05)] p-xl pb-10 pointer-events-auto transition-transform translate-y-0">
+<div class="w-12 h-1.5 bg-outline-variant rounded-full mx-auto mb-xl opacity-50"></div>
+<div class="grid grid-cols-2 gap-md">
+<!-- Safety Card -->
+<div class="bg-surface-container-low p-md rounded-xl flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">shield_person</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Safety Status</p>
+<p class="font-body-md font-bold text-primary">Monitored</p>
+</div>
+</div>
+<!-- Share Card -->
+<button class="bg-surface-container-low p-md rounded-xl flex items-center gap-sm hover:bg-surface-container transition-colors active:scale-95">
+<span class="material-symbols-outlined text-secondary">share_location</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Share Trip</p>
+<p class="font-body-md font-bold text-on-surface">Trusted Contacts</p>
+</div>
+</button>
+</div>
+<div class="mt-lg border-t border-outline-variant/30 pt-md flex items-center justify-between">
+<div class="flex items-center gap-md">
+<img class="w-12 h-12 rounded-full object-cover ring-2 ring-primary-fixed" data-alt="A friendly, professional close-up portrait of a driver in their late 30s, wearing a clean collared shirt. He is smiling warmly, conveying a sense of reliability and trust. The background is softly blurred inside a vehicle interior. The lighting is natural and bright, reinforcing the corporate-modern and safe aesthetic of the Sahayatri brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQETuDNTmDd0OIZ3KevV_5cHHYBtuvd6nrIzoErC4g1Qb4RWpPVb0dTjkqYPxTOrr6G04k3MRe7629KBJxs1Th65Fx2EIg87moEqjTzqhE90IlfMp_HeBPImIRrFtqRcrVFD_wuEOMAqJ-ow5Jat0IMTf7tHg_ut6VsD7aylYQ8KAZkwQGhgB7VcA84IDGl5avMGWsCdkQPqMfG5mQIj1beBbMC9cw8oM2eUEu_rSSLDz1GeGymIXJSWZFAvtmJZ6ned4wKkXZheQ"/>
+<div>
+<p class="font-headline-sm text-headline-sm text-on-surface">Ramesh Thapa</p>
+<p class="font-body-sm text-on-surface-variant">BA 2 CHA 4521 • Electric Van</p>
+</div>
+</div>
+<button class="w-12 h-12 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">call</span>
+</button>
+</div>
+</div>
+</div>
+<!-- SOS OVERLAY (Hidden by Default) -->
+<div class="fixed inset-0 z-[100] bg-[#ba1a1a]/95 hidden backdrop-blur-xl flex-col items-center justify-center p-xl text-center" id="sos-overlay">
+<div class="emergency-shimmer w-full h-2 fixed top-0 left-0"></div>
+<div class="bg-white/10 p-xl rounded-full mb-xl animate-pulse">
+<span class="material-symbols-outlined text-white text-[120px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-white mb-md">EMERGENCY TRIPPED</h1>
+<p class="font-body-lg text-white/90 mb-xl max-w-xs">Sending live coordinates to the Sahayatri Command Center and local authorities...</p>
+<div class="relative w-32 h-32 flex items-center justify-center mb-xl">
+<svg class="absolute inset-0 w-full h-full -rotate-90">
+<circle class="opacity-20" cx="64" cy="64" fill="transparent" r="60" stroke="white" stroke-width="8"></circle>
+<circle class="transition-all duration-1000 linear" cx="64" cy="64" fill="transparent" id="countdown-circle" r="60" stroke="white" stroke-dasharray="377" stroke-dashoffset="0" stroke-width="8"></circle>
+</svg>
+<span class="font-display-lg text-display-lg text-white" id="countdown-text">5</span>
+</div>
+<button class="px-xl py-lg bg-white text-[#ba1a1a] font-bold rounded-xl shadow-xl active:scale-95 transition-transform" id="cancel-sos">
+                CANCEL (False Alarm)
+            </button>
+<div class="mt-xl flex flex-col gap-sm">
+<div class="flex items-center gap-md text-white/80">
+<span class="material-symbols-outlined">my_location</span>
+<span class="font-body-md">27.7172° N, 85.3240° E</span>
+</div>
+<div class="flex items-center gap-md text-white/80">
+<span class="material-symbols-outlined">wifi_calling_3</span>
+<span class="font-body-md">Connecting to Nepal Police...</span>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Car Marker Movement Logic
+        const marker = document.getElementById('car-marker');
+        const positions = [
+            { left: '20%', top: '80%' },
+            { left: '35%', top: '65%' },
+            { left: '42%', top: '68%' },
+            { left: '55%', top: '55%' },
+            { left: '70%', top: '45%' }
+        ];
+        let posIdx = 0;
+
+        function moveMarker() {
+            posIdx = (posIdx + 1) % positions.length;
+            marker.style.left = positions[posIdx].left;
+            marker.style.top = positions[posIdx].top;
+        }
+
+        setInterval(moveMarker, 3000);
+
+        // SOS Functionality
+        const sosBtn = document.getElementById('sos-btn');
+        const sosOverlay = document.getElementById('sos-overlay');
+        const cancelBtn = document.getElementById('cancel-sos');
+        const countdownText = document.getElementById('countdown-text');
+        const countdownCircle = document.getElementById('countdown-circle');
+        
+        let timer;
+        let timeLeft = 5;
+        const totalOffset = 377; // 2 * PI * r (60)
+
+        sosBtn.addEventListener('click', () => {
+            sosOverlay.classList.remove('hidden');
+            sosOverlay.classList.add('flex');
+            startCountdown();
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            clearInterval(timer);
+            sosOverlay.classList.add('hidden');
+            sosOverlay.classList.remove('flex');
+            resetCountdown();
+        });
+
+        function startCountdown() {
+            timeLeft = 5;
+            updateUI();
+            timer = setInterval(() => {
+                timeLeft--;
+                updateUI();
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    alert("Emergency alert sent to Command Center!");
+                }
+            }, 1000);
+        }
+
+        function resetCountdown() {
+            timeLeft = 5;
+            updateUI();
+        }
+
+        function updateUI() {
+            countdownText.innerText = timeLeft;
+            const offset = (timeLeft / 5) * totalOffset;
+            countdownCircle.style.strokeDashoffset = totalOffset - offset;
+        }
+
+        // Simple haptic feedback simulation
+        sosBtn.addEventListener('touchstart', () => {
+            if (window.navigator.vibrate) window.navigator.vibrate(50);
+        });
+    </script>
+</body></html>

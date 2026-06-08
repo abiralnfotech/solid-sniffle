@@ -1,7 +1,8 @@
 from fastapi import APIRouter
-from app.api.v1.endpoints import users, kyc, routes, rides, credits, feedback, location
+from app.api.v1.endpoints import users, kyc, routes, rides, credits, feedback, location, auth
 
 api_router = APIRouter()
+api_router.include_router(auth.router, prefix="/auth", tags=["auth"])
 api_router.include_router(users.router, prefix="/users", tags=["users"])
 api_router.include_router(kyc.router, prefix="/kyc", tags=["kyc"])
 api_router.include_router(routes.router, prefix="/routes", tags=["routes"])

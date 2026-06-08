@@ -51,6 +51,8 @@ class RideService:
             raise AppException("Ride not found", status_code=status.HTTP_404_NOT_FOUND)
 
         route = await self.route_repo.get(ride.route_id)
+        if not route:
+            raise AppException("Route not found", status_code=status.HTTP_404_NOT_FOUND)
         if route.driver_id != driver_id:
             raise AppException("Unauthorized", status_code=status.HTTP_401_UNAUTHORIZED)
 

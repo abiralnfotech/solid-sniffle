@@ -20,7 +20,7 @@ async def init_db():
 
         # 2. KYC constraints
         await conn.execute(text("ALTER TABLE kyc_verifications DROP CONSTRAINT IF EXISTS valid_doc_type;"))
-        await conn.execute(text("ALTER TABLE kyc_verifications ADD CONSTRAINT valid_doc_type CHECK (document_type IN ('nagarikta', 'rashtriya_parichayapatra'));"))
+        await conn.execute(text("ALTER TABLE kyc_verifications ADD CONSTRAINT valid_doc_type CHECK (document_type IN ('nagarikta', 'rashtriya_parichayapatra', 'citizenship', 'license'));"))
 
         await conn.execute(text("ALTER TABLE kyc_verifications DROP CONSTRAINT IF EXISTS driver_mode_requires_license;"))
         await conn.execute(text("""

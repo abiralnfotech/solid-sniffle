@@ -37,6 +37,7 @@ class User(SQLModel, table=True):
     user_id: UUID = Field(default_factory=uuid4, primary_key=True)
     phone_number: str = Field(unique=True, index=True, max_length=15)
     full_name: str = Field(max_length=100)
+    profile_picture_url: Optional[str] = Field(default=None)
     role: UserRole = Field(default=UserRole.passenger)
     is_banned: bool = Field(default=False)
     created_at: datetime = Field(
@@ -74,6 +75,7 @@ class KYCVerification(SQLModel, table=True):
     driver_license_number: Optional[str] = Field(default=None, unique=True, max_length=50)
     identity_front_url: str
     identity_back_url: str
+    selfie_image_url: Optional[str] = Field(default=None)
     driver_license_url: Optional[str] = Field(default=None)
     status: VerificationStatus = Field(default=VerificationStatus.pending)
     reviewed_by: Optional[UUID] = Field(default=None, foreign_key="users.user_id")

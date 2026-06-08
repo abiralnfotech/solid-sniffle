@@ -15,6 +15,10 @@ class Settings(BaseSettings):
 
     DATABASE_URL: str | None = None
 
+    SECRET_KEY: str = "supersecretkey"
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7 # 1 week
+
     CORS_ORIGINS: List[str] = ["*"]
 
     model_config = SettingsConfigDict(env_file=".env", case_sensitive=True, extra="ignore")

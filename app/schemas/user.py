@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field, field_validator
 import re
-
+from typing import Optional
 from uuid import UUID
 
 
@@ -22,6 +22,18 @@ class UserRead(UserBase):
     user_id: UUID
     role: str
     is_banned: bool
+    profile_picture_url: Optional[str] = None
+    credit_balance: float = 0.0
+    is_verified: bool = False
+    rating: float = 5.0
 
     class Config:
         from_attributes = True
+
+class UserUpdate(BaseModel):
+    full_name: Optional[str] = None
+    profile_picture_url: Optional[str] = None
+
+class UserStatus(BaseModel):
+    is_active: bool
+    suspension_reason: Optional[str] = None

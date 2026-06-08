@@ -15,5 +15,4 @@ class CreditLedgerRead(BaseModel):
         from_attributes = True
 
 class CreditBalance(BaseModel):
-    user_id: UUID
     balance: int

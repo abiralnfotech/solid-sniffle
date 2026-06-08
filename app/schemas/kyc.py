@@ -10,6 +10,7 @@ class KYCBase(BaseModel):
     driver_license_number: Optional[str] = Field(None, max_length=50)
     identity_front_url: str
     identity_back_url: str
+    selfie_image_url: Optional[str] = None
     driver_license_url: Optional[str] = None
 
 class KYCCreate(KYCBase):
@@ -29,3 +30,7 @@ class KYCRead(KYCBase):
 class KYCReview(BaseModel):
     status: VerificationStatus
     rejection_reason: Optional[str] = None
+
+class KYCStatus(BaseModel):
+    status: str
+    reason: Optional[str] = None
